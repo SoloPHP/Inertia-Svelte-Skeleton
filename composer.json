@@ -1,0 +1,26 @@
+{
+  "name": "solophp/inertia-svelte-skeleton",
+  "type": "project",
+  "description": "SoloPHP Framework Skeleton Application for Inertia.js and Svelte, ready to start coding",
+  "keywords": ["PHP","DI","Container","PSR-11"],
+  "homepage": "https://github.com/SoloPHP/Inertia-Svelte-Skeleton.git",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vitaliy Olos",
+      "email": "vedastudio@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^8.1",
+    "solophp/framework": "^1.0",
+    "nyholm/psr7-server": "^1.1"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
