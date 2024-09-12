@@ -1,0 +1,41 @@
+#!/usr/bin/env php
+<?php
+
+use Solo\Container;
+
+const ROOT_PATH = __DIR__;
+
+require_once ROOT_PATH . '/vendor/autoload.php';
+
+if (PHP_SAPI !== 'cli') exit('Script needs to be run from Command Line Interface' . PHP_EOL);
+
+global $argv;
+global $argc;
+
+if ($argc > 1) {
+    $parts = explode(':', $argv[1]);
+    $command = ucfirst($parts[0]);
+    $action = isset($parts[1]) ? ucfirst($parts[1]) : 'Default';
+    $args = array_slice($argv, 2);
+} else {
+    $command = 'Help';
+    $action = 'Default';
+    $args = [];
+}
+
+$class = "Console\Commands\\$command\\{$action}Action";
+
+if (!class_exists($class)) exit("Command not found. To view the list of available commands, use the help option: php cli help" . PHP_EOL);
+
+$container = new Container();
+
+$services = require ROOT_PATH . '/config/services.php';
+$services($container);
+
+$classInstance = new $class($container);
+
+$message = $classInstance($args);
+
+print($message);
+
+?>

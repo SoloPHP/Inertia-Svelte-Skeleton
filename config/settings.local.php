@@ -1,5 +1,11 @@
 <?php
 
 return [
-    'environment' => 'development'
+    'environment' => 'development',
+    'database' => [
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'dbname' => 'skeleton'
+    ]
 ];

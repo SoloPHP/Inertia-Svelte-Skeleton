@@ -38,6 +38,16 @@ To create a production build, run:
 npm run build
 ```
 
+## Database Connection Configuration
+To set up your database connection, you need to configure settings for both local and remote environments.
+Fill in the required data for `config/settings.local.php` (for localhost) and `config/settings.php` (for remote host).
+
+## Database Migrations
+Use following command to view the list of all available commands.
+```bash
+php cli help
+```
+
 ## Important Notes
 
 - For the application to work properly, both the client server and the backend server must be running simultaneously.
