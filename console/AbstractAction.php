@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace console;
+namespace Console;
 
 use Solo\Database;
 use Psr\Container\ContainerInterface;
