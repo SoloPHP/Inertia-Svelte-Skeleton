@@ -6,11 +6,11 @@ use Solo\Settings;
 use Psr\Container\ContainerInterface;
 
 return function (ContainerInterface $container) {
-    $container->set(Settings::class, function () {
-        $settings = file_exists(ROOT_PATH.'/config/settings.local.php') ?
-            ROOT_PATH . '/config/settings.local.php' :
-            ROOT_PATH . '/config/settings.php';
-        return new Settings(require $settings);
+    $container->set(Configs::class, function () {
+        $settings = file_exists(ROOT_PATH.'/config/config.local.php') ?
+            ROOT_PATH . '/config/config.local.php' :
+            ROOT_PATH . '/config/config.php';
+        return new Configs(require $settings);
     });
 
     $container->set('assetsVersion', function () {

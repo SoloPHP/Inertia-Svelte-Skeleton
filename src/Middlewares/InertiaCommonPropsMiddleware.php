@@ -7,9 +7,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Solo\Settings;
+use Solo\Configs;
 
-final readonly class InertiaCommonPropsMiddleware implements MiddlewareInterface
+class InertiaCommonPropsMiddleware implements MiddlewareInterface
 {
 
     public function __construct(private ContainerInterface $container)
@@ -18,7 +18,7 @@ final readonly class InertiaCommonPropsMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $settings = $this->container->get(Settings::class);
+        $settings = $this->container->get(Configs::class);
 
         $request = $request->withAttribute('inertiaCommonProps', [
             'environment' => $settings->get('environment')
