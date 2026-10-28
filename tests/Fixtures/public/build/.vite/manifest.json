@@ -1,0 +1,15 @@
+{
+  "resources/js/app.js": {
+    "file": "assets/app-test.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": ["_shared-test.js"],
+    "css": ["assets/app-test.css"]
+  },
+  "_shared-test.js": {
+    "file": "assets/shared-test.js",
+    "name": "shared",
+    "css": ["assets/shared-test.css"]
+  }
+}
