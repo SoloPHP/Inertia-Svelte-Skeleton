@@ -1,36 +1,19 @@
-<?php declare(strict_types=1);
+<?php
 
-use Solo\Application;
-use Solo\Container;
-use Solo\Http\Emitter;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7Server\ServerRequestCreator;
+declare(strict_types=1);
 
-define("ROOT_PATH", dirname(__DIR__));
+// `composer serve` runs PHP's built-in server with this file as its router: a file that
+// exists in public/, such as a built asset, is left to the server to send as it is
+if (PHP_SAPI === 'cli-server') {
+    $uri = $_SERVER['REQUEST_URI'] ?? '/';
+    $path = parse_url(is_string($uri) ? $uri : '/', PHP_URL_PATH);
+    $file = is_string($path) ? realpath(__DIR__ . $path) : false;
+    if ($file !== false && str_starts_with($file, __DIR__ . DIRECTORY_SEPARATOR) && is_file($file)) {
+        return false;
+    }
+}
 
-require_once ROOT_PATH . '/vendor/autoload.php';
+/** @var Solo\Application\Application $app */
+$app = require __DIR__ . '/../bootstrap/app.php';
 
-$container = new Container();
-$services = require '../config/services.php';
-$services($container);
-
-$app = new Application($container);
-
-$routes = require ROOT_PATH . '/config/routes.php';
-$routes($app);
-
-$middleware = require ROOT_PATH . '/config/middlewares.php';
-$middleware($app);
-
-$psr17Factory = new Psr17Factory();
-
-$creator = new ServerRequestCreator(
-    $psr17Factory, $psr17Factory, $psr17Factory, $psr17Factory
-);
-
-$serverRequest = $creator->fromGlobals();
-
-$response = $app->run($serverRequest);
-
-$responseEmitter = new Emitter();
-$responseEmitter->emit($response);
+$app->run();

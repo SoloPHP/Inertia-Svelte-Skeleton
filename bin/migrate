@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/*
+ * Applies the pending migrations in database/migrations.
+ *
+ *     php bin/migrate            apply them
+ *     php bin/migrate --status   list them without applying
+ */
+
+use App\Database\Migrator;
+
+/** @var Solo\Application\Application $app */
+$app = require __DIR__ . '/../bootstrap/app.php';
+
+$migrator = $app->container->get(Migrator::class);
+
+if (in_array('--status', $argv, true)) {
+    $pending = array_keys($migrator->pending());
+    echo $pending === [] ? "Nothing to migrate.\n" : "Pending:\n  " . implode("\n  ", $pending) . "\n";
+    exit(0);
+}
+
+$applied = $migrator->run();
+echo $applied === [] ? "Nothing to migrate.\n" : "Migrated:\n  " . implode("\n  ", $applied) . "\n";

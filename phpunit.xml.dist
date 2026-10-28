@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheDirectory=".phpunit.cache"
+         colors="true"
+         failOnWarning="true"
+         failOnRisky="true"
+         failOnDeprecation="true"
+         failOnPhpunitDeprecation="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true">
+    <testsuites>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
+    <php>
+        <!-- Each test boots the application on a fresh in-memory database -->
+        <env name="APP_NAME" value="Solo Inertia" force="true"/>
+        <env name="APP_ENV" value="testing" force="true"/>
+        <env name="APP_DEBUG" value="false" force="true"/>
+        <env name="APP_KEY" value="testing-key-of-at-least-thirty-two-bytes" force="true"/>
+        <env name="DB_DRIVER" value="pdo_sqlite" force="true"/>
+        <env name="DB_PATH" value=":memory:" force="true"/>
+        <env name="LOG_FILE" value="storage/logs/testing.log" force="true"/>
+    </php>
+</phpunit>

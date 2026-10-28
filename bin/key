@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/*
+ * Fills APP_KEY in .env with a new random key, which signs the cookie that
+ * carries errors and flash data to the next page.
+ *
+ *     php bin/key           only when APP_KEY is empty
+ *     php bin/key --force   replace it; flash cookies in flight are dropped
+ */
+
+$file = dirname(__DIR__) . '/.env';
+$env = is_file($file) ? (string) file_get_contents($file) : '';
+
+if (!in_array('--force', $argv, true) && preg_match('/^APP_KEY=\S/m', $env) === 1) {
+    echo "APP_KEY is set already.\n";
+    exit(0);
+}
+
+$line = 'APP_KEY=' . bin2hex(random_bytes(32));
+$env = preg_match('/^APP_KEY=.*$/m', $env) === 1
+    ? (string) preg_replace('/^APP_KEY=.*$/m', $line, $env, 1)
+    : rtrim($env) . "\n$line\n";
+
+file_put_contents($file, $env);
+echo "APP_KEY generated in .env\n";

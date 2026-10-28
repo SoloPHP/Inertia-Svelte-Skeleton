@@ -1,0 +1,9 @@
+parameters:
+    level: max
+    paths:
+        - bootstrap
+        - config
+        - database
+        - public/index.php
+        - src
+        - tests

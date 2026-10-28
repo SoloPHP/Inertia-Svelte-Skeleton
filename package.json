@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^20.19 || ^22.12 || >=24"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@inertiajs/svelte": "^3.9.1",
+    "@inertiajs/vite": "^3.9.1",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "svelte": "^5.57.3",
+    "vite": "^8.3.5"
+  }
+}

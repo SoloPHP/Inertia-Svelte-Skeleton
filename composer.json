@@ -1,9 +1,9 @@
 {
   "name": "solophp/inertia-svelte-skeleton",
   "type": "project",
-  "description": "SoloPHP Framework Skeleton Application for Inertia.js and Svelte, ready to start coding",
-  "keywords": ["PHP","DI","Container","PSR-11"],
-  "homepage": "https://github.com/SoloPHP/Inertia-Svelte-Skeleton.git",
+  "description": "Starter application for SoloPHP with Inertia.js 3 and Svelte 5: server-side routing and controllers, a single-page front end, no API to write.",
+  "keywords": ["solophp", "skeleton", "inertia", "inertiajs", "svelte", "vite", "psr-7", "psr-15"],
+  "homepage": "https://github.com/SoloPHP/Inertia-Svelte-Skeleton",
   "license": "MIT",
   "authors": [
     {
@@ -11,17 +11,70 @@
       "email": "vedastudio@gmail.com"
     }
   ],
+  "require": {
+    "php": "^8.4",
+    "doctrine/dbal": "^4.5",
+    "nyholm/psr7": "^1.8",
+    "nyholm/psr7-server": "^1.1",
+    "solophp/application": "^4.0.1",
+    "solophp/container": "^4.0",
+    "solophp/contracts": "^1.8",
+    "solophp/dotenv": "^1.0",
+    "solophp/http-emitter": "^1.0",
+    "solophp/inertia": "^2.0",
+    "solophp/input": "^1.1",
+    "solophp/logger": "^1.0",
+    "solophp/repository": "^1.1",
+    "solophp/router": "^4.1",
+    "solophp/validator": "^4.2"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^2.1",
+    "phpunit/phpunit": "^12.0",
+    "squizlabs/php_codesniffer": "^3.13"
+  },
+  "suggest": {
+    "ext-pdo_sqlite": "For the default SQLite database",
+    "ext-pdo_mysql": "To run on MySQL or MariaDB",
+    "ext-pdo_pgsql": "To run on PostgreSQL"
+  },
   "autoload": {
     "psr-4": {
-      "App\\": "src/",
-      "Console\\": "console/"
+      "App\\": "src/"
     }
   },
-  "require": {
-    "php": "^8.1",
-    "solophp/framework": "main-dev",
-    "nyholm/psr7-server": "^1.1"
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
   },
-  "minimum-stability": "dev",
+  "scripts": {
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "@php bin/key"
+    ],
+    "post-create-project-cmd": [
+      "@php bin/migrate"
+    ],
+    "key": "@php bin/key",
+    "serve": [
+      "Composer\\Config::disableProcessTimeout",
+      "@php -S 127.0.0.1:8000 -t public public/index.php"
+    ],
+    "migrate": "@php bin/migrate",
+    "test": "phpunit",
+    "stan": "phpstan analyse --memory-limit=512M",
+    "cs": "phpcs",
+    "check": [
+      "@cs",
+      "@stan",
+      "@test"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true
+  },
+  "minimum-stability": "stable",
   "prefer-stable": true
 }

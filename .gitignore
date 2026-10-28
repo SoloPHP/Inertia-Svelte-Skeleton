@@ -1,7 +1,8 @@
-!.gitignore
-vendor
-composer.lock
-example
-.idea
-.DS_Store
-Thumbs.db
+/vendor/
+/node_modules/
+/public/build/
+/public/hot
+/.env
+/.env.local
+/.phpunit.cache/
+/.idea/
