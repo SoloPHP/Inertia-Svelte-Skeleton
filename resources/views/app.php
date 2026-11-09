@@ -7,7 +7,7 @@
  * @var string $head Elements from server-side rendering, '' without it
  * @var string $body The page object's script element and the root element the client mounts on
  * @var array<string, mixed> $page The page object
- * @var App\Http\Vite $vite
+ * @var Solo\Vite\Vite $vite
  * @var string $appName
  */
 

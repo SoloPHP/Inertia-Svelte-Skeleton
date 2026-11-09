@@ -34,6 +34,7 @@ Open http://127.0.0.1:8000. While `npm run dev` runs, the pages load their scrip
 | [solophp/inertia](https://solophp.github.io/Inertia/) | Pages, redirects with errors and messages, deferred and once props, the Inertia protocol | `InertiaServiceProvider`, controllers, `config/middleware.php` |
 | [@inertiajs/svelte](https://inertiajs.com/docs/v3) | The client: pages, links, forms, partial reloads | `resources/js` |
 | [Svelte 5](https://svelte.dev) and [Vite](https://vite.dev) | Components with runes, the dev server and the build | `resources/js`, `vite.config.js` |
+| [solophp/vite](https://github.com/SoloPHP/Vite) | The script and style tags of the build or the dev server, and the asset version | `InertiaServiceProvider`, `resources/views/app.php` |
 | [solophp/application](https://solophp.github.io/Application/) | PSR-15 kernel: providers, middleware pipeline, routing, route cache | `bootstrap/app.php` |
 | [solophp/router](https://solophp.github.io/Router/) | Routes, groups, `{id:\d+}` patterns; `UrlGenerator` makes every link and redirect from a route name | `config/routes.php`, `src/Task/` |
 | [solophp/container](https://solophp.github.io/Container/) | PSR-11 container with autowiring | `src/Providers/` |
@@ -61,7 +62,6 @@ resources/
   css/app.css
 src/
   Http/
-    Vite.php                  the script and style tags of the build or the dev server
     ValidationMessages.php    failed rules -> the messages a form shows
     InputValidator.php        validates a form while the user types, with its route's input class
     Middleware/               Error, Csrf, SharedProps, JsonBody

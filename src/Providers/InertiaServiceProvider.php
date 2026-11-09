@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Http\InputValidator;
-use App\Http\Vite;
 use Psr\Log\LoggerInterface;
 use Solo\Application\Config;
 use Solo\Contracts\Container\WritableContainerInterface;
@@ -15,6 +14,7 @@ use Solo\Inertia\CookieFlashStore;
 use Solo\Inertia\Inertia;
 use Solo\Inertia\PhpRootView;
 use Solo\Input\InputFactory;
+use Solo\Vite\Vite;
 
 /**
  * Inertia: the root template of a first visit, the asset version a client must
@@ -29,9 +29,12 @@ final class InertiaServiceProvider
 {
     public function register(WritableContainerInterface $container): void
     {
-        $container->set(Vite::class, fn(WritableContainerInterface $c) => new Vite(
-            $c->get(Config::class)->basePath . '/public',
-        ));
+        // npm run build writes public/build; npm run dev keeps its address in public/hot
+        $container->set(Vite::class, function (WritableContainerInterface $c): Vite {
+            $public = $c->get(Config::class)->basePath . '/public';
+
+            return new Vite("$public/build/.vite/manifest.json", '/build/', "$public/hot");
+        });
 
         $container->set(Inertia::class, function (WritableContainerInterface $c): Inertia {
             $vite = $c->get(Vite::class);

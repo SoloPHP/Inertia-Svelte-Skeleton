@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests;
 
 use App\Database\Migrator;
-use App\Http\Vite;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;
 use PHPUnit\Framework\TestCase as BaseTestCase;
@@ -14,6 +13,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Solo\Application\Application;
 use Solo\Inertia\Header;
 use Solo\Inertia\Inertia;
+use Solo\Vite\Vite;
 
 /**
  * Feature tests send requests through the whole application with
@@ -40,7 +40,10 @@ abstract class TestCase extends BaseTestCase
         $this->app = $app;
 
         // A build of its own: the tests neither need `npm run build` nor change with it
-        $this->app->container->set(Vite::class, fn() => new Vite(__DIR__ . '/Fixtures/public'));
+        $this->app->container->set(Vite::class, fn() => new Vite(
+            __DIR__ . '/Fixtures/public/build/.vite/manifest.json',
+            '/build/',
+        ));
 
         $this->app->container->get(Migrator::class)->run();
     }
